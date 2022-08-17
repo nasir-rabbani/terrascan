@@ -34,3 +34,6 @@ jobs:
       
     - name: tcs version
       run: tcs version
+
+    - name: tcs image scan
+      run: tcs scan -t=container-image --image=docker-daemon:tenable/terrascan:${{ env.TERRASCAN_TAG }} --appurl=https://qa-develop.cloud.aws.tenablesecurity.com/cns --token=${{ secrets.TIO_API_TOKEN }} --repo-name=https://github.com/nasir-rabbani/terrascan --project=b977ea79-e552-43a3-a6f6-fd300427d09c -l debug

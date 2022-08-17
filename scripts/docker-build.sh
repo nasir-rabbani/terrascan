@@ -8,6 +8,8 @@ GIT_COMMIT=$(git rev-parse --short HEAD 2>/dev/null)
 DOCKER_REPO="tenable/terrascan"
 DOCKERFILE="./build/Dockerfile"
 
+export TERRASCAN_TAG=${GIT_COMMIT}
+
 docker buildx create --platform linux/amd64,linux/arm64 --name terrascan-builder --use
 
 docker buildx build -t ${DOCKER_REPO}:${GIT_COMMIT} -f ${DOCKERFILE} . --load
