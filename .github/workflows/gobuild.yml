@@ -12,11 +12,6 @@ jobs:
       GOPATH: /home/runner/work/terrascan
       GOBIN: /home/runner/work/terrascan/bin
       GO_VERSION: 1.17
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_TEST }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_TEST }}
-      AWS_REGION: ${{ secrets.AWS_REGION_TEST }}
-      AZURE_AUTH_TEST_SECRET:  ${{ secrets.AZURE_AUTH_TEST_KEY }}
-      GOOGLE_APPLICATION_CREDENTIALS_TEST_SECRET:  ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_TEST_KEY }}
     steps:
     - name: Checkout Terrascan
       uses: actions/checkout@v2
@@ -26,56 +21,19 @@ jobs:
       with:
         go-version: ${{ env.GO_VERSION }}
 
-    - name: Install golint
-      run: go get -u golang.org/x/lint/golint
-
     - name: Build Terrascan docker image
       run: make docker-build
-
-    - name: Go validations
-      run: make validate
 
     - name: Build Terrascan
       run: make build
-
-    - name: Run unit tests
-      run: make unit-tests
-
-    - name: install kind
-      run: make install-kind
-
-    - name: Run e2e tests
-      run: make e2e-tests
-
-    - name: Run e2e vulnerability tests
-      if: ${{  (github.event_name == 'push'|| github.event_name == 'schedule') && github.actor != 'dependabot[bot]' }}
-      run: make e2e-vulnerability-tests
-
-    - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v1
-
-  # push image to Docker Hub
-  push:
-    # Ensure "validate" job passes before pushing image.
-    needs: validate
-
-    runs-on: ubuntu-latest
-    if: github.event_name == 'push'
-
-    steps:
-    - name: Checkout Terrascan
-      uses: actions/checkout@v2
-
-    - name: Build Terrascan docker image
-      run: make docker-build
-
-    - name: Login to Docker Hub
-      uses: docker/login-action@v2
-      if: ${{ github.ref == 'refs/heads/master' }}
+      
+    - name: wget
+      uses: wei/wget@v1
       with:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-    - name: Push Terrascan latest docker image
-      if: ${{ github.ref == 'refs/heads/master' }}
-      run: make docker-push-latest
+        args: -O tcs.tar.gz https://staging.tenable.com/downloads/api/v2/pages/tenable-cs/files/tenable.cs-cli-linux-v2.0.0.tar.gz
+        
+    - name: extract
+      run: tar -xf tcs.tar.gz tcs && rm tcs.tar.gz && install tcs /usr/local/bin
+      
+    - name: tcs version
+      run: tcs version
