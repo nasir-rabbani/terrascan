@@ -50,7 +50,7 @@ require (
 	github.com/pelletier/go-toml v1.9.3
 	github.com/pkg/errors v0.9.1
 	github.com/spf13/afero v1.6.0
-	github.com/spf13/cobra v1.1.3
+	github.com/spf13/cobra v1.6.0
 	github.com/stretchr/testify v1.7.0
 	github.com/zclconf/go-cty v1.9.1
 	go.uber.org/zap v1.16.0
@@ -59,7 +59,7 @@ require (
 	google.golang.org/api v0.34.0
 	google.golang.org/genproto v0.0.0-20201110150050-8816d57aaa9a
 	gopkg.in/src-d/go-git.v4 v4.13.1
-	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b
+	gopkg.in/yaml.v3 v3.0.1
 	helm.sh/helm/v3 v3.6.1
 	honnef.co/go/tools v0.3.1 // indirect
 	k8s.io/api v0.21.0
@@ -132,7 +132,7 @@ require (
 	github.com/hashicorp/go-safetemp v1.0.0 // indirect
 	github.com/huandu/xstrings v1.3.2 // indirect
 	github.com/imdario/mergo v0.3.12 // indirect
-	github.com/inconshreveable/mousetrap v1.0.0 // indirect
+	github.com/inconshreveable/mousetrap v1.0.1 // indirect
 	github.com/itchyny/astgen-go v0.0.0-20210113000433-0da0671862a3 // indirect
 	github.com/itchyny/timefmt-go v0.1.1 // indirect
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
