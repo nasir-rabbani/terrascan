@@ -55,7 +55,7 @@ require (
 	github.com/spf13/cobra v1.6.1
 	github.com/stretchr/testify v1.8.1
 	github.com/zclconf/go-cty v1.10.0
-	go.uber.org/zap v1.17.0
+	go.uber.org/zap v1.24.0
 	golang.org/x/sys v0.3.0
 	golang.org/x/tools v0.1.12 // indirect
 	google.golang.org/api v0.109.0
